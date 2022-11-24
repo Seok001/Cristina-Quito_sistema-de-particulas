@@ -1,5 +1,5 @@
 let pelotas = [];
-let angle = 0;
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -45,7 +45,7 @@ class Bolita {
     this.t = 0;
     this.tSpeed = random(0, 1);
     this.noiseShift = random(1000);
-    this.lifespan = int(random(30, 200));
+    this.lifespan = int(random(30, 100));
 
     this.isAlife = true;
 
@@ -53,16 +53,13 @@ class Bolita {
     this.speed = createVector(random(-4, 4), random(-4, 4));
     this.height = random(5, 20);
     this.width = random(5, 20);
-    this.diametro = random(20, 60);
+    this.diametro = random(10, 70);
 
-    this.bolitaFinal = this.diametro / 1.5;
+    this.bolitaFinal = this.diametro / 2;
 
     print('hola:viviere' + this.lifespan + 'frames');
 
-
   }
-
-
 
   update(_t) {
 
@@ -71,19 +68,9 @@ class Bolita {
     this.t += this.tSpeed;
 
     translate(0);
-
-
   }
 
-
-
   display() {
-
-
-
-    rectMode(CENTER);
-    fill(this.blue, this.red, this.green);
-    rect(this.pos.x - 15, this.pos.y - 15, 10, 10);
 
     stroke('rgba(0,0,0,0.2)');
     strokeWeight(1);
@@ -93,6 +80,9 @@ class Bolita {
     rectMode(CENTER);
     fill(this.red, this.blue, this.green);
     rect(this.pos.x + 20, this.pos.y - 20, 10, 10);
+
+    fill(this.blue, this.red, this.green);
+    rect(this.pos.x - 15, this.pos.y - 15, 10, 10);
 
     stroke('rgba(0,0,0,0.2)');
     strokeWeight(1);
@@ -105,21 +95,19 @@ class Bolita {
     ellipse(this.pos.x + 15, this.pos.y + 15, 10);
 
 
-    this.lifespan--;
-    if (this.lifespan <= 0) {
-      this.falleciending();
+    this.lifespan++;
+    if (this.lifespan >= 0) {
+      this.viviending();
     }
-
 
   }
 
-  falleciending() {
-    this.diametro -= 0.4;
-    if (this.diametro <= 0) {
-      this.isAlife = false;
-      print('me morí, porque mi vida es ' + this.isAlife);
+  viviending() {
+    this.diametro += 0.1;
+    if (this.diametro >= 0) {
+      this.isAlife = true;
+      print('vivo, porque mi vida es ' + this.isAlife);
       ellipse(this.pos.x, this.pos.y, this.bolitaFinal);
-
 
     }
   }
