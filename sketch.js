@@ -50,12 +50,12 @@ class Bolita {
     this.isAlife = true;
 
     this.pos = createVector(_mouseX, _mouseY);
-    this.speed = createVector(random(-4, 4), random(-4, 4));
+    this.speed = createVector(random(-8, 8), random(-8, 8));
     this.height = random(5, 20);
     this.width = random(5, 20);
-    this.diametro = random(10, 70);
+    this.diametro = random(10, 30);
 
-    this.bolitaFinal = this.diametro / 2;
+    this.bolitaFinal = this.diametro;
 
     print('hola:viviere' + this.lifespan + 'frames');
 
@@ -67,7 +67,9 @@ class Bolita {
     this.pos.add(this.speed);
     this.t += this.tSpeed;
 
-    translate(0);
+
+    this.lifespan--;
+
   }
 
   display() {
@@ -77,7 +79,6 @@ class Bolita {
     fill(this.green, this.blue, this.red);
     ellipse(this.pos.x, this.pos.y, this.diametro);
 
-    rectMode(CENTER);
     fill(this.red, this.blue, this.green);
     rect(this.pos.x + 20, this.pos.y - 20, 10, 10);
 
@@ -94,22 +95,29 @@ class Bolita {
     fill(this.blue, this.red, this.green);
     ellipse(this.pos.x + 15, this.pos.y + 15, 10);
 
+    fill(this.red, this.blue, this.green);
+    rect(this.pos.x, this.pos.y - 40, 40, 10);
 
-    this.lifespan++;
-    if (this.lifespan >= 0) {
-      this.viviending();
+    fill(this.blue, this.red, this.green);
+    rect(this.pos.x - 40, this.pos.y + 40, 30, 10);
+
+
+
+
+    if (this.lifespan <= 0) {
+      this.falleciending();
     }
 
   }
-
-  viviending() {
-    this.diametro += 0.1;
-    if (this.diametro >= 0) {
-      this.isAlife = true;
-      print('vivo, porque mi vida es ' + this.isAlife);
-      ellipse(this.pos.x, this.pos.y, this.bolitaFinal);
-
+  falleciending() {
+    this.diametro -= 0.009;
+    if (this.diametro <= 0) {
+      this.isAlife = false;
+      print('me muero, porque mi vida es ' + this.isAlife);
+      fill(this.blue, this.red, this.green);
+      ellipse(this.pos.x, this.pos.y, this.bolitaFinal,);
     }
   }
+
 
 }
